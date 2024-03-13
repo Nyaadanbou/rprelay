@@ -2,7 +2,7 @@ name: Deploy to OSS
 
 on:
   workflow_run:
-    workflows: ["packsquash"] 
+    workflows: ["Optimize resource pack"] 
     types:
       - completed
 
