@@ -33,7 +33,8 @@ jobs:
   
       - name: Upload files to OSS with logging
         run: |
-          timeout 30s ossutil cp -r pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ --update --log-file ossutil.log || echo "Upload timed out or failed"
+          set -e
+          timeout 30s ossutil cp pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ -u || echo "Upload timed out or failed"
         
         
   
