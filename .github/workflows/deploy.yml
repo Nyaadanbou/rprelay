@@ -27,15 +27,11 @@ jobs:
       - name: Configure ossutil
         run: |
           ossutil config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.ALIYUN_ACCESS_KEY_ID }} -k ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} --config-file ~/.ossutilconfig
-    
-      - name: Verify ossutil installation
-        run: |
-          ossutil --config-file ~/.ossutilconfig
   
       - name: Upload files to OSS with timeout and error handling
         run: |
           set -e
-          timeout 300s ossutil cp -r pack.zip oss://mimaru/assets/ --update || (echo "Upload timed out or failed" && exit 1)
+          timeout 300s ossutil cp pack.zip oss://g2213swo/assets/pack.zip || (echo "Upload timed out or failed" && exit 1)
         
         
         
