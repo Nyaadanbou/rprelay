@@ -16,12 +16,12 @@ jobs:
         # make sure to read and understand the warning above before
         # doing this in production!
         run: mv pack.zip pack-${{ github.run_number }}.zip
-      - name: Deploy pack file
-        uses: appleboy/scp-action@v0.1.2
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: pack-${{ github.run_number }}.zip
-          target: ${{ secrets.DEPLOY_DIRECTORY }}
+    #   - name: Deploy pack file
+    #     uses: appleboy/scp-action@v0.1.2
+    #     with:
+    #       host: ${{ secrets.SSH_HOST }}
+    #       username: ${{ secrets.SSH_USERNAME }}
+    #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #       port: ${{ secrets.SSH_PORT }}
+    #       source: pack-${{ github.run_number }}.zip
+    #       target: ${{ secrets.DEPLOY_DIRECTORY }}
