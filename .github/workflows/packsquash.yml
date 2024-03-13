@@ -1,5 +1,7 @@
 name: Optimize resource pack
-on: [push]
+on: 
+    push:
+    pull_request:
 permissions:
     contents: write
 jobs:
@@ -11,6 +13,9 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0 # A non-shallow repository clone is required
+      # Checks JSON for errors
+      - name: Check JSON
+        uses: ocular-d/json-linter@0.0.2
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v4
         with:
@@ -25,8 +30,6 @@ jobs:
             output_file_path = '/tmp/pack.zip'
       - name: Tag and create release
         uses: softprops/action-gh-release@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: action-v${{ github.run_number }}
           files: /tmp/pack.zip

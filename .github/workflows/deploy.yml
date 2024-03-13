@@ -1,27 +1,37 @@
-name: Deploy via SSH
-on: [workflow_dispatch]
+name: Deploy to OSS
+
+on:
+  workflow_run:
+    workflows: ["packsquash"] 
+    types:
+      - completed
+
 jobs:
-  deploy:
-    name: Deploy
+  upload:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Download latest released pack
-        uses: dsaltares/fetch-gh-release-asset@v1.0.0
+        uses: dsaltares/fetch-gh-release-asset@1.1.1
         with:
           file: pack.zip
           target: pack.zip
       - name: Rename pack file
-        # An unique name guarantees an unique URL. Different URLs
-        # compel Minecraft clients to download packs again, but
-        # make sure to read and understand the warning above before
-        # doing this in production!
         run: mv pack.zip pack-${{ github.run_number }}.zip
-    #   - name: Deploy pack file
-    #     uses: appleboy/scp-action@v0.1.2
-    #     with:
-    #       host: ${{ secrets.SSH_HOST }}
-    #       username: ${{ secrets.SSH_USERNAME }}
-    #       key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #       port: ${{ secrets.SSH_PORT }}
-    #       source: pack-${{ github.run_number }}.zip
-    #       target: ${{ secrets.DEPLOY_DIRECTORY }}
+      - name: Install ossutil
+        run: |
+          curl -O http://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64
+          chmod 755 ossutil64
+          mv ossutil64 /usr/local/bin/ossutil
+  
+      - name: Config ossutil
+        run: |
+          ossutil config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.ALIYUN_ACCESS_KEY_ID }} -k ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+  
+      - name: Upload files to OSS
+        run: |
+          ossutil cp -r pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ --update
+  
