@@ -31,7 +31,9 @@ jobs:
         run: |
           ossutil config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.ALIYUN_ACCESS_KEY_ID }} -k ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
   
-      - name: Upload files to OSS
+      - name: Upload files to OSS with logging
         run: |
-          ossutil cp -r pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ --update
+          timeout 30s ossutil cp -r pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ --update --log-file ossutil.log || echo "Upload timed out or failed"
+        
+        
   
