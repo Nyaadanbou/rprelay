@@ -21,20 +21,15 @@ jobs:
           target: pack.zip
       - name: Rename pack file
         run: mv pack.zip pack-${{ github.run_number }}.zip
-      - name: Install ossutil
-        run: |
-          curl -O http://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64
-          chmod 755 ossutil64
-          mv ossutil64 /usr/local/bin/ossutil
-  
-      - name: Config ossutil
-        run: |
-          ossutil config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.ALIYUN_ACCESS_KEY_ID }} -k ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-  
-      - name: Upload files to OSS with logging
-        run: |
-          set -e
-          timeout 30s ossutil cp pack-${{ github.run_number }}.zip oss://${{ secrets.OSS_BUCKET }}/assets/ -u || echo "Upload timed out or failed"
+      - name: Upload to OSS
+        uses: YangHanlin/oss-deployment-action@v1
+        with:
+          oss-endpoint: ${{ secrets.OSS_ENDPOINT }}
+          oss-accesskey-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          oss-accesskey-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          oss-path: oss://mimaru/assets/
+          local-path: pack-${{ github.run_number }}.zip
+        
         
         
   
