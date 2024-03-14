@@ -19,6 +19,9 @@ jobs:
         with:
           file: pack.zip
           target: pack.zip
+      - name: Generate pack SHA1
+        run: |
+          shasum path/to/pack.zip | cut -d" " -f 1 > checksum.txt
       - name: Install ossutil
         run: |
           sudo -v
@@ -32,6 +35,7 @@ jobs:
         run: |
           set -e
           timeout 5s ossutil cp pack.zip oss://g2213swo/assets/pack.zip || (echo "Upload timed out or failed" && exit 1)
+          timeout 5s ossutil cp checksum.txt oss://g2213swo/assets/checksum.txt || (echo "Upload timed out or failed" && exit 1)
         
         
         
