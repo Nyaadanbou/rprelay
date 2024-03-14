@@ -21,7 +21,7 @@ jobs:
           target: pack.zip
       - name: Generate pack SHA1
         run: |
-          shasum pack.zip | cut -d" " -f 1 > checksum.txt
+          shasum pack.zip | cut -d" " -f 1 | tr -d '\n' > checksum.txt
       - name: Install ossutil
         run: |
           sudo -v
