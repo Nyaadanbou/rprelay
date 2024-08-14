@@ -1,1 +1,1 @@
-{"pack":{"pack_format":22,"description":"Wakame"}}
+{"pack":{"pack_format":32,"description":"Wakame","supported_formats":[32,34]}}
