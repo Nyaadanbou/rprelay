@@ -1,0 +1,1 @@
+{"parent":"item/handheld_mace","textures":{"layer0":"item/mace"},"overrides":[{"predicate":{"custom_model_data":10050},"model":"wakame:item/weapon/steelvanguard_set/mace_0"}]}
