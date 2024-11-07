@@ -1,1 +1,1 @@
-{"parent":"item/handheld_mace","textures":{"layer0":"item/mace"},"overrides":[{"predicate":{"custom_model_data":10050},"model":"wakame:item/weapon/steelvanguard_set/mace_0"},{"predicate":{"custom_model_data":10084},"model":"wakame:item/weapon/dwarf_flame_set/mace_0"}]}
+{"parent":"item/handheld_mace","textures":{"layer0":"item/mace"},"overrides":[{"predicate":{"custom_model_data":10057},"model":"wakame:item/weapon/dwarf_flame_set/dwarf_flame_mace_0"}]}
