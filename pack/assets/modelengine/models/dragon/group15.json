@@ -1,0 +1,1 @@
+{"display":{"gui":{"rotation":[30.0,225.0,0.0]}},"elements":[{"from":[-7.1000004,-12.300138,23.33579],"to":[-7.1000004,-8.300138,27.33579],"faces":{"east":{"uv":[8.375,1.75,8.875,2.25],"texture":"#6","tintindex":0},"west":{"uv":[8.375,8.25,8.875,8.75],"texture":"#6","tintindex":0}}}],"textures":{"6":"modelengine:entity/b_leg"}}
