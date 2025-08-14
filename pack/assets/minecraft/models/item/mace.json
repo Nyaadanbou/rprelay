@@ -1,1 +1,0 @@
-{"parent":"item/handheld_mace","textures":{"layer0":"item/mace"},"overrides":[{"predicate":{"custom_model_data":10057},"model":"wakame:item/weapon/dwarf_set/dwarf_flame_mace_0"},{"predicate":{"custom_model_data":10371},"model":"wakame:item/weapon/alkasis_set/alkasis_mace_0"}]}
